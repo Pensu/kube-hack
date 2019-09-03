@@ -75,7 +75,7 @@ kube::golang::server_targets() {
     cmd/kubeadm
     cmd/hyperkube
     cmd/kube-scheduler
-    vendor/k8s.io/apiextensions-apiserver
+    k8s.io/apiextensions-apiserver
     cluster/gce/gci/mounter
   )
   echo "${targets[@]}"
@@ -105,7 +105,7 @@ readonly KUBE_SERVER_IMAGE_BINARIES=("${KUBE_SERVER_IMAGE_TARGETS[@]##*/}")
 kube::golang::conformance_image_targets() {
   # NOTE: this contains cmd targets for kube::release::build_conformance_image
   local targets=(
-    vendor/github.com/onsi/ginkgo/ginkgo
+    github.com/onsi/ginkgo/ginkgo
     test/e2e/e2e.test
     cluster/images/conformance/go-runner
     cmd/kubectl
@@ -261,7 +261,7 @@ kube::golang::test_targets() {
     cmd/genyaml
     cmd/genswaggertypedocs
     cmd/linkcheck
-    vendor/github.com/onsi/ginkgo/ginkgo
+    github.com/onsi/ginkgo/ginkgo
     test/e2e/e2e.test
     cluster/images/conformance/go-runner
   )
@@ -289,7 +289,7 @@ readonly KUBE_TEST_PORTABLE=(
 kube::golang::server_test_targets() {
   local targets=(
     cmd/kubemark
-    vendor/github.com/onsi/ginkgo/ginkgo
+    github.com/onsi/ginkgo/ginkgo
   )
 
   if [[ "${OSTYPE:-}" == "linux"* ]]; then

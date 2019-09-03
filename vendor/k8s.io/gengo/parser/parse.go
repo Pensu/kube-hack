@@ -571,6 +571,13 @@ func (b *Builder) importWithMode(dir string, mode build.ImportMode) (*build.Pack
 	}
 	buildPkg, err := b.context.Import(dir, cwd, mode)
 	if err != nil {
+		// Hack for gomodules... if importing fails, and this is a vendored dir, take the import package after /vendor/... and try to import that
+		if strings.Contains(dir, "/vendor/") {
+			parts := strings.Split(dir, "/vendor/")
+			path := parts[len(parts)-1]
+			klog.V(5).Infof("failed with %v, attempting to import %s", err, path)
+			return b.importWithMode(path, mode)
+		}
 		return nil, err
 	}
 	return buildPkg, nil
